@@ -50,44 +50,7 @@ def add_server_time(server_url="https://dash.icehost.pl/server/2920225f"):
                 else:
                     print("Cookie 登录成功，已进入服务器页面。")
 
-            # --- 方案二：如果 Cookie 方案失败或未提供，则使用邮箱密码登录 ---
-            if not remember_web_cookie:
-                if not (pterodactyl_email and pterodactyl_password):
-                    print("错误: Cookie 无效，且未提供 PTERODACTYL_EMAIL 或 PTERODACTYL_PASSWORD。无法登录。")
-                    browser.close()
-                    return False
 
-                login_url = "https://hub.weirdhost.xyz/auth/login" # 已更新为新的登录URL
-                print(f"正在访问登录页面: {login_url}")
-                page.goto(login_url, wait_until="domcontentloaded", timeout=90000)
-
-                # 定义选择器 (Pterodactyl 面板通用，无需修改)
-                email_selector = 'input[name="username"]' 
-                password_selector = 'input[name="password"]'
-                login_button_selector = 'button[type="submit"]'
-
-                print("等待登录表单元素加载...")
-                page.wait_for_selector(email_selector)
-                page.wait_for_selector(password_selector)
-                page.wait_for_selector(login_button_selector)
-
-                print("正在填写邮箱和密码...")
-                page.fill(email_selector, pterodactyl_email)
-                page.fill(password_selector, pterodactyl_password)
-
-                print("正在点击登录按钮...")
-                with page.expect_navigation(wait_until="domcontentloaded", timeout=60000):
-                    page.click(login_button_selector)
-
-                # 检查登录后是否成功
-                if "login" in page.url or "auth" in page.url:
-                    error_text = page.locator('.alert.alert-danger').inner_text().strip() if page.locator('.alert.alert-danger').count() > 0 else "未知错误，URL仍在登录页。"
-                    print(f"邮箱密码登录失败: {error_text}")
-                    page.screenshot(path="login_fail_error.png")
-                    browser.close()
-                    return False
-                else:
-                    print("邮箱密码登录成功。")
 
             # --- 确保当前位于正确的服务器页面 ---
             if page.url != server_url:
