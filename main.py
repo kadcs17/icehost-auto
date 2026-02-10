@@ -61,10 +61,11 @@ def add_time_task(page):
         if page.url != SERVER_URL:
             print(f"当前不在目标页面，正在导航至: {SERVER_URL}")
             page.goto(SERVER_URL, wait_until="domcontentloaded")
-        await page.getByText('Dodaj 6 godzin ważności').click();
+        
 
         #add_button_selector = 'button:has-text("Dodaj 6 godzin ważności")'
         print("步骤1: 查找并点击 'Dodaj 6 godzin ważności' 按钮...")
+        page.getByText('Dodaj 6 godzin ważności').click();
         #page.locator(add_button_selector).wait_for(state='visible', timeout=30000)
         #page.locator(add_button_selector).click()
         #print("...已点击 'Add 90 minutes'。")
