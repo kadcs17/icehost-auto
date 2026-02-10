@@ -65,7 +65,7 @@ def add_time_task(page):
 
         #add_button_selector = 'button:has-text("Dodaj 6 godzin ważności")'
         print("步骤1: 查找并点击 'Dodaj 6 godzin ważności' 按钮...")
-        page.getByText('Dodaj 6 godzin ważności').click();
+        page.get_by_text("Dodaj 6 godzin ważności").click()
         #page.locator(add_button_selector).wait_for(state='visible', timeout=30000)
         #page.locator(add_button_selector).click()
         #print("...已点击 'Add 90 minutes'。")
