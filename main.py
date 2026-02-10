@@ -6,7 +6,7 @@ from datetime import datetime
 
 # --- 配置项 ---
 SERVER_URL = "https://dash.icehost.pl/server/2920225f"
-LOGIN_URL = "https://dash.icehost.pl"
+LOGIN_URL = "https://dash.icehost.pl/server/2920225f"
 COOKIE_NAME = "icehostpl_session"
 # 单次任务执行的超时时间（秒），依然保留以防单次运行卡死
 TASK_TIMEOUT_SECONDS = 300  # 5分钟
@@ -33,7 +33,7 @@ def login_with_playwright(page):
     if remember_web_cookie:
         print("检测到 PTERODACTYL_COOKIE，尝试使用 Cookie 登录...")
         session_cookie = {
-            'name': COOKIE_NAME, 'value': remember_web_cookie, 'domain': '.panel.godlike.host',
+            'name': COOKIE_NAME, 'value': remember_web_cookie, 'domain': '.icehost.pl',
             'path': '/', 'expires': int(time.time()) + 3600 * 24 * 365, 'httpOnly': True,
             'secure': True, 'sameSite': 'Lax'
         }
