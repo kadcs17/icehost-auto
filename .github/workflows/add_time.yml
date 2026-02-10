@@ -4,10 +4,8 @@ name: Add Icehost Server Time
 
 on:
   schedule:
-    - cron: '0 */3 * * *'   # 每3小时运行一次
-    - cron: '30 1-23/3 * * *' # 从01:30开始，每3小时+90分钟运行一次（即90分钟间隔）
-  workflow_dispatch:        # 允许手动触发
-
+    - cron: '0 */3 * * *'   # 每 3 小时一次（UTC）
+  workflow_dispatch:
 jobs:
   add_time_job:
     runs-on: ubuntu-latest
