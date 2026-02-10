@@ -52,37 +52,6 @@ def login_with_playwright(page):
         print("错误: Cookie 无效或未提供，且未提供 PTERODACTYL_EMAIL 和 PTERODACTYL_PASSWORD。无法登录。", flush=True)
         return False
 
-    print("正在尝试使用邮箱和密码登录...")
-    page.goto(LOGIN_URL, wait_until="domcontentloaded")
-    try:
-        print("正在点击 'Through login/password'...")
-        page.locator('a:has-text("Through login/password")').click()
-        
-        email_selector = 'input[name="username"]'
-        password_selector = 'input[name="password"]'
-        login_button_selector = 'button[type="submit"]:has-text("Login")'
-        
-        print("等待登录表单元素加载...")
-        page.wait_for_selector(email_selector)
-        page.wait_for_selector(password_selector)
-        print("正在填写邮箱和密码...")
-        page.fill(email_selector, pterodactyl_email)
-        page.fill(password_selector, pterodactyl_password)
-        print("正在点击登录按钮...")
-        with page.expect_navigation(wait_until="domcontentloaded"):
-            page.click(login_button_selector)
-        
-        if "auth/login" in page.url:
-            print("邮箱密码登录失败，请检查凭据是否正确。", flush=True)
-            page.screenshot(path="login_fail_error.png")
-            return False
-        
-        print("邮箱密码登录成功！")
-        return True
-    except Exception as e:
-        print(f"邮箱密码登录过程中发生错误: {e}", flush=True)
-        page.screenshot(path="login_process_error.png")
-        return False
 
 def add_time_task(page):
     """执行一次增加服务器时长的任务。"""
@@ -92,12 +61,13 @@ def add_time_task(page):
         if page.url != SERVER_URL:
             print(f"当前不在目标页面，正在导航至: {SERVER_URL}")
             page.goto(SERVER_URL, wait_until="domcontentloaded")
+        await page.getByText('Dodaj 6 godzin ważności').click();
 
-        add_button_selector = 'button:has-text("Dodaj 6 godzin ważności")'
+        #add_button_selector = 'button:has-text("Dodaj 6 godzin ważności")'
         print("步骤1: 查找并点击 'Dodaj 6 godzin ważności' 按钮...")
-        page.locator(add_button_selector).wait_for(state='visible', timeout=30000)
-        page.locator(add_button_selector).click()
-        print("...已点击 'Add 90 minutes'。")
+        #page.locator(add_button_selector).wait_for(state='visible', timeout=30000)
+        #page.locator(add_button_selector).click()
+        #print("...已点击 'Add 90 minutes'。")
 
         #watch_ad_selector = 'button:has-text("Watch advertisment")'
         #print("步骤2: 查找并点击 'Watch advertisment' 按钮...")
