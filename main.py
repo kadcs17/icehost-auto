@@ -10,13 +10,6 @@ def add_server_time(server_url="https://dash.icehost.pl/server/2920225f"):
     """
     # 从环境变量获取登录凭据
     remember_web_cookie = os.environ.get('REMEMBER_WEB_COOKIE')
-    pterodactyl_email = os.environ.get('PTERODACTYL_EMAIL')
-    pterodactyl_password = os.environ.get('PTERODACTYL_PASSWORD')
-
-    # 检查是否提供了任何登录凭据
-    if not (remember_web_cookie or (pterodactyl_email and pterodactyl_password)):
-        print("错误: 缺少登录凭据。请设置 REMEMBER_WEB_COOKIE 或 PTERODACTYL_EMAIL 和 PTERODACTYL_PASSWORD 环境变量。")
-        return False
 
     with sync_playwright() as p:
         # 在 GitHub Actions 中，使用 headless 无头模式运行
