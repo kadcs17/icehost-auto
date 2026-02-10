@@ -5,9 +5,9 @@ from playwright.sync_api import sync_playwright, TimeoutError as PlaywrightTimeo
 from datetime import datetime
 
 # --- 配置项 ---
-SERVER_URL = "https://panel.godlike.host/server/cf0da97a"
-LOGIN_URL = "https://panel.godlike.host/auth/login"
-COOKIE_NAME = "remember_web_59ba36addc2b2f9401580f014c7f58ea4e30989d"
+SERVER_URL = "https://dash.icehost.pl/server/2920225f"
+LOGIN_URL = "https://dash.icehost.pl"
+COOKIE_NAME = "icehostpl_session"
 # 单次任务执行的超时时间（秒），依然保留以防单次运行卡死
 TASK_TIMEOUT_SECONDS = 300  # 5分钟
 
@@ -93,23 +93,23 @@ def add_time_task(page):
             print(f"当前不在目标页面，正在导航至: {SERVER_URL}")
             page.goto(SERVER_URL, wait_until="domcontentloaded")
 
-        add_button_selector = 'button:has-text("Add 90 minutes")'
-        print("步骤1: 查找并点击 'Add 90 minutes' 按钮...")
+        add_button_selector = 'button:has-text("Dodaj 6 godzin ważności")'
+        print("步骤1: 查找并点击 'Dodaj 6 godzin ważności' 按钮...")
         page.locator(add_button_selector).wait_for(state='visible', timeout=30000)
         page.locator(add_button_selector).click()
         print("...已点击 'Add 90 minutes'。")
 
-        watch_ad_selector = 'button:has-text("Watch advertisment")'
-        print("步骤2: 查找并点击 'Watch advertisment' 按钮...")
-        page.locator(watch_ad_selector).wait_for(state='visible', timeout=30000)
-        page.locator(watch_ad_selector).click()
-        print("...已点击 'Watch advertisment'。")
+        #watch_ad_selector = 'button:has-text("Watch advertisment")'
+        #print("步骤2: 查找并点击 'Watch advertisment' 按钮...")
+        #page.locator(watch_ad_selector).wait_for(state='visible', timeout=30000)
+        #page.locator(watch_ad_selector).click()
+        #print("...已点击 'Watch advertisment'。")
 
         # 【【【 核心修改点在这里 】】】
         # 不再等待成功提示，而是直接固定等待2分钟。
-        print("步骤3: 开始固定等待2分钟...")
-        time.sleep(120)  # 等待 2 分钟 (120 秒)
-        print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] ✅ 已等待2分钟，默认任务完成。")
+        print("步骤3: 开始固定等待20s...")
+        time.sleep(20)  # 等待 2 分钟 (120 秒)
+        print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] ✅ 已等待20s，默认任务完成。")
         
         return True
 
