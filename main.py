@@ -63,7 +63,7 @@ def add_server_time(server_url="https://dash.icehost.pl/server/2920225f"):
                     return False
 
             # --- 核心操作：查找并点击 "시간 추가" 按钮 ---
-            add_button_selector = 'button:has-text("DODAJ 6 GODZIN WAŻNOŚCI")' # 已更新为新的按钮文本
+            add_button_selector = 'button:has-text("Dodaj 6 godzin ważności")' # 已更新为新的按钮文本
             print(f"正在查找并等待 '{add_button_selector}' 按钮...")
 
             try:
